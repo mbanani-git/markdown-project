@@ -1,24 +1,17 @@
 import React from "react";
 import marked from "marked";
-
-const data =
-  "# Marker Editor  \n---\nThis [Marked](https://github.com/markedjs/marked/) tool enables you to convert markdown text into HTML.\n## How to use it ?\n" +
-  "1. Type some markdown text in the editor.\n2. see the live updates in the display zone\n\n" +
-  "### To implement it using React:\n ```\n class MarkdownExample extends React.Component {\ngetMarkdownText() {var rawMarkup = marked('This is _Markdown_.', {sanitize: true});return { __html: rawMarkup };}\nrender() {return <div dangerouslySetInnerHTML={this.getMarkdownText()} />}}\n```\n" +
-  "### These are some markdown examples:\n >this is an **inline code:**  `useState()`\n" +
-  "- And this is a list.\n - And this is a picture.\n\n" +
-  "![my picture](./azuki.jpg)\n";
-
+import result from "./data";
+import logo from "./logo.png";
 const createMarkUp = (val) => {
   return { __html: marked(val) };
 };
 
-class MarkDownInput extends React.Component {
+class MarkDownOutput extends React.Component {
   render() {
     return (
       <React.Fragment>
-        <div className="accordion mt-4" id="accordionOne">
-          <div className="accordion-item">
+        <div className="accordion mt-5 w-100 " id="accordionOne">
+          <div className="accordion-item w-100 ">
             <h2 className="accordion-header" id="headingOne">
               <button
                 className="accordion-button"
@@ -34,20 +27,17 @@ class MarkDownInput extends React.Component {
             </h2>
             <div
               id="collapseOne"
-              className="accordion-collapse collapse show"
+              className="accordion-collapse collapse "
               aria-labelledby="headingOne"
               data-bs-parent="#accordionOne"
             >
               <div
+                className="p-3"
                 id="preview"
                 dangerouslySetInnerHTML={createMarkUp(this.props.input)}
                 onChange={this.props.handleChange}
               ></div>
             </div>
-          </div>
-          <div className="row signature text-center my-2">
-            <p>By mbanani @mbdev</p>
-            <p>Made with ReactJs, MarkedJs and Bootstrap.</p>
           </div>
         </div>
       </React.Fragment>
@@ -55,11 +45,11 @@ class MarkDownInput extends React.Component {
   }
 }
 
-export default class MarkDownOutput extends React.Component {
+class MarkDownInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      input: data,
+      input: result,
     };
     this.handleChange = this.handleChange.bind(this);
     this.clearData = this.clearData.bind(this);
@@ -76,14 +66,10 @@ export default class MarkDownOutput extends React.Component {
   }
 
   render() {
-    console.log(this.state.input);
     return (
       <React.Fragment>
-        <div className="container">
-          <div
-            className="accordion justify-content-center d-flex flex-column"
-            id="accordionTwo"
-          >
+        <div className="">
+          <div className="accordion justify-content-center d-flex flex-column" id="accordionTwo">
             <div className="accordion-item2">
               <h2 className="accordion-header" id="headingTwo">
                 <button
@@ -117,20 +103,35 @@ export default class MarkDownOutput extends React.Component {
                 </div>
               </div>
             </div>
-            <button
-              className="btn-danger rounded-pill my-2 w-50 mx-auto"
-              onClick={this.clearData}
-            >
+            <button className="btn-danger rounded-pill my-2 w-50 mx-auto mt-4" onClick={this.clearData}>
               Clear All
             </button>
           </div>
 
-          <MarkDownInput
-            input={this.state.input}
-            handleChange={this.handleChange}
-          />
+          <MarkDownOutput input={this.state.input} handleChange={this.handleChange} />
         </div>
       </React.Fragment>
     );
   }
 }
+
+const Main = () => {
+  return (
+    <div className="main container mw-100">
+      <header>
+        <img src={logo} alt="" />
+      </header>
+      <div className="container justify-content-center">
+        <MarkDownInput />
+        <section className="copyright mt-5">
+          Created by{" "}
+          <a href="https://thembdev.com">
+            <img src={"https://mbdev-utils.s3.eu-west-3.amazonaws.com/mbdev_logo_sm.svg"} alt="mbdev" />
+          </a>
+        </section>
+      </div>
+    </div>
+  );
+};
+
+export default Main;

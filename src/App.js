@@ -1,12 +1,8 @@
 import React from "react";
-import MarkDownOutput from "./markdown";
+import Main from "./markdown";
 
 function App() {
-  return (
-    <div className="main">
-      <MarkDownOutput />
-    </div>
-  );
+  return <Main />;
 }
 
 export default App;
