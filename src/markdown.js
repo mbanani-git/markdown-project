@@ -21,7 +21,7 @@ class MarkDownOutput extends React.Component {
                 aria-expanded="true"
                 aria-controls="collapseOne"
               >
-                <i class="bi bi-braces mx-2"></i>
+                <i className="bi bi-braces mx-2"></i>
                 Display
               </button>
             </h2>
